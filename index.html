@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=256, height=512, initial-scale=1.0">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 256px;
+  height: 512px;
+  overflow: hidden;
+  background: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pantalla {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 512px;
+  opacity: 0;
+  animation: rotar 18s infinite;
+  text-align: center;
+}
+
+.pantalla:nth-child(1) { animation-delay: 0s; }
+.pantalla:nth-child(2) { animation-delay: 6s; }
+.pantalla:nth-child(3) { animation-delay: 12s; }
+
+@keyframes rotar {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  28% { opacity: 1; }
+  36% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.contenido {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  transform: translate(-50%, -50%);
+}
+
+.juego {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.label {
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: #ddd;
+}
+
+.bote {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mensaje {
+  font-size: 15px;
+  margin-top: 14px;
+  color: #ddd;
+}
+
+.web {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: 256px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 900;
+  color: white;
+}
+
+.euromillones {
+  color: #ffd45a;
+  background: radial-gradient(circle at center, rgba(255,212,90,0.4), transparent 40%), #000;
+}
+
+.primitiva {
+  color: #38ff9c;
+  background: radial-gradient(circle at center, rgba(56,255,156,0.4), transparent 40%), #000;
+}
+
+.gordo {
+  color: #ff9f43;
+  background: radial-gradient(circle at center, rgba(255,159,67,0.4), transparent 40%), #000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="pantalla euromillones">
+  <div class="contenido">
+    <div class="juego">EUROMILLONES</div>
+    <div class="label">Bote en juego</div>
+    <div class="bote" id="euromillones">...</div>
+    <div class="mensaje">¿Y si esta vez sí?</div>
+  </div>
+  <div class="web">lapastoreta.com</div>
+</div>
+
+<div class="pantalla primitiva">
+  <div class="contenido">
+    <div class="juego">LA PRIMITIVA</div>
+    <div class="label">Bote acumulado</div>
+    <div class="bote" id="primitiva">...</div>
+    <div class="mensaje">Sigue creciendo</div>
+  </div>
+  <div class="web">lapastoreta.com</div>
+</div>
+
+<div class="pantalla gordo">
+  <div class="contenido">
+    <div class="juego">EL GORDO</div>
+    <div class="label">Domingo</div>
+    <div class="bote" id="gordo">...</div>
+    <div class="mensaje">Premio grande</div>
+  </div>
+  <div class="web">lapastoreta.com</div>
+</div>
+
+<script>
+const URL_APPS_SCRIPT = "AQUI_VA_TU_URL";
+
+function pintarBotes(datos) {
+  document.getElementById("euromillones").textContent = datos.euromillones || "";
+  document.getElementById("primitiva").textContent = datos.primitiva || "";
+  document.getElementById("gordo").textContent = datos.gordo || "";
+}
+
+function cargarDatos() {
+  const viejo = document.getElementById("jsonp-botes");
+  if (viejo) viejo.remove();
+
+  const script = document.createElement("script");
+  script.id = "jsonp-botes";
+  script.src = URL_APPS_SCRIPT + "?callback=pintarBotes&t=" + Date.now();
+  document.body.appendChild(script);
+}
+
+cargarDatos();
+setInterval(cargarDatos, 300000);
+</script>
+
+</body>
+</html>
