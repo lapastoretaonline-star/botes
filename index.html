@@ -136,24 +136,29 @@ html, body {
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_sux9HLbZsxVhlu-O3r4xKHLQ-FQLTmI95dosV2bdX0MmfCocDfm4k1wD-xvzV_X9IQ/exec";
 
 function pintarBotes(datos) {
-  document.getElementById("euromillones").textContent = datos.euromillones || "";
-  document.getElementById("primitiva").textContent = datos.primitiva || "";
-  document.getElementById("gordo").textContent = datos.gordo || "";
+  console.log("Datos recibidos:", datos);
+
+  const campos = [
+    "bonoloto",
+    "primitiva",
+    "quiniela",
+    "gordo",
+    "quinigol",
+    "lototurf",
+    "eurodreams",
+    "euromillones"
+  ];
+
+  campos.forEach(campo => {
+    const elemento = document.getElementById(campo);
+
+    if (elemento) {
+      elemento.textContent = datos[campo] || "Sin dato";
+    } else {
+      console.log("No existe el elemento HTML:", campo);
+    }
+  });
 }
-
-function cargarDatos() {
-  const viejo = document.getElementById("jsonp-botes");
-  if (viejo) viejo.remove();
-
-  const script = document.createElement("script");
-  script.id = "jsonp-botes";
-  script.src = URL_APPS_SCRIPT + "?callback=pintarBotes&t=" + Date.now();
-  document.body.appendChild(script);
-}
-
-cargarDatos();
-setInterval(cargarDatos, 300000);
-</script>
 
 </body>
 </html>
