@@ -93,9 +93,10 @@ html, body {
   font-size: 38px;
   font-weight: 900;
   color: #fff;
+  white-space: nowrap;
 }
 
-.millones {
+.millions {
   font-size: 18px;
   font-weight: 900;
   margin-top: 10px;
@@ -107,6 +108,7 @@ html, body {
   font-size: 38px;
   font-weight: 900;
   color: #fff;
+  white-space: nowrap;
 }
 
 .eurodreams-sub {
@@ -116,7 +118,6 @@ html, body {
   color: #fff;
 }
 
-/* FOOTER */
 .footer {
   position: absolute;
   bottom: 0;
@@ -124,6 +125,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2;
 }
 
 .web {
@@ -140,7 +142,6 @@ html, body {
   opacity: 0.95;
 }
 
-/* COLORES */
 .bonoloto { background: linear-gradient(160deg, #778926, #2f350e); }
 .primitiva { background: linear-gradient(160deg, #09873D, #022b14); }
 .quiniela { background: linear-gradient(160deg, #CB1517, #3a0506); }
@@ -150,7 +151,6 @@ html, body {
 .eurodreams { background: linear-gradient(160deg, #6E368C, #1a0b22); }
 .euromillones { background: linear-gradient(160deg, #003968, #000c1a); }
 
-/* BRILLO */
 .pantalla::before {
   content: "";
   position: absolute;
@@ -158,13 +158,13 @@ html, body {
   background:
     radial-gradient(circle at 50% 28%, rgba(255,255,255,0.25), transparent 35%),
     radial-gradient(circle at 50% 82%, rgba(255,255,255,0.12), transparent 50%);
+  pointer-events: none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BONOLOTO -->
 <div class="pantalla bonoloto">
   <div class="contenido">
     <img src="logo-bonoloto-blanco.png" class="logo">
@@ -178,7 +178,6 @@ html, body {
   </div>
 </div>
 
-<!-- PRIMITIVA -->
 <div class="pantalla primitiva">
   <div class="contenido">
     <img src="logo-primitiva-blanco.png" class="logo">
@@ -192,12 +191,89 @@ html, body {
   </div>
 </div>
 
-<!-- resto igual... (estructura repetida para todos los juegos) -->
+<div class="pantalla quiniela">
+  <div class="contenido">
+    <img src="logo-quiniela-blanco.png" class="logo">
+    <div class="juego">LA QUINIELA</div>
+    <div class="label">POT</div>
+    <div class="bote" id="quiniela"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla gordo">
+  <div class="contenido">
+    <img src="logo-el-gordo-blanco.png" class="logo">
+    <div class="juego">EL GORDO</div>
+    <div class="label">POT</div>
+    <div class="bote" id="gordo"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla quinigol">
+  <div class="contenido">
+    <img src="logo-quinigol-blanco.png" class="logo">
+    <div class="juego">EL QUINIGOL</div>
+    <div class="label">POT</div>
+    <div class="bote" id="quinigol"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla lototurf">
+  <div class="contenido">
+    <img src="logo-lototurf-blanco.png" class="logo">
+    <div class="juego">LOTOTURF</div>
+    <div class="label">POT</div>
+    <div class="bote" id="lototurf"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla eurodreams">
+  <div class="contenido">
+    <img src="logo-eurodreams-blanco.png" class="logo">
+    <div class="juego">EURODREAMS</div>
+    <div class="label">POT</div>
+    <div class="bote" id="eurodreams"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla euromillones">
+  <div class="contenido">
+    <img src="logo-euromillones-blanco.png" class="logo">
+    <div class="juego">EUROMILLONES</div>
+    <div class="label">POT</div>
+    <div class="bote" id="euromillones"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
 
 <script>
 const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_sux9HLbZsxVhlu-O3r4xKHLQ-FQLTmI95dosV2bdX0MmfCocDfm4k1wD-xvzV_X9IQ/exec";
 
 function formatearBote(valor, juego) {
+  if (!valor) return "";
 
   if (juego === "eurodreams") {
     return `
@@ -206,37 +282,46 @@ function formatearBote(valor, juego) {
     `;
   }
 
-  let limpio = valor.replace(/\./g,"").replace(",00","").replace("€","");
-  let num = parseInt(limpio);
+  let limpio = String(valor)
+    .replace(/\./g, "")
+    .replace(",00", "")
+    .replace("€", "")
+    .replace(/\s/g, "");
+
+  let num = parseInt(limpio, 10);
 
   if (isNaN(num)) return valor;
 
   if (num >= 1000000) {
-    let m = (num / 1000000).toLocaleString("es-ES",{maximumFractionDigits:1});
+    let m = (num / 1000000).toLocaleString("es-ES", { maximumFractionDigits: 1 });
     return `
       <div class="cifra">${m}</div>
-      <div class="millones">MILIONS</div>
+      <div class="millions">MILIONS</div>
     `;
   }
 
   return `<div class="cifra-small">${num.toLocaleString("es-ES")} €</div>`;
 }
 
-function pintarBotes(datos){
-  Object.keys(datos).forEach(k=>{
-    let el=document.getElementById(k);
-    if(el) el.innerHTML=formatearBote(datos[k],k);
+function pintarBotes(datos) {
+  Object.keys(datos).forEach(k => {
+    let el = document.getElementById(k);
+    if (el) el.innerHTML = formatearBote(datos[k], k);
   });
 }
 
-function cargarDatos(){
-  let s=document.createElement("script");
-  s.src=URL_APPS_SCRIPT+"?callback=pintarBotes&t="+Date.now();
+function cargarDatos() {
+  const viejo = document.getElementById("jsonp");
+  if (viejo) viejo.remove();
+
+  let s = document.createElement("script");
+  s.id = "jsonp";
+  s.src = URL_APPS_SCRIPT + "?callback=pintarBotes&t=" + Date.now();
   document.body.appendChild(s);
 }
 
 cargarDatos();
-setInterval(cargarDatos,300000);
+setInterval(cargarDatos, 300000);
 </script>
 
 </body>
