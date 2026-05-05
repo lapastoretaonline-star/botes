@@ -45,38 +45,54 @@ html, body {
 /* CONTENIDO */
 .contenido {
   position: absolute;
-  top: 50%;
+  top: 42%;
   left: 50%;
   width: 240px;
   transform: translate(-50%, -50%);
 }
 
-/* LOGOS */
+/* TEXTO */
+.juego {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
 .logo {
-  width: 130px;
-  max-height: 90px;
+  width: 120px;
+  max-height: 80px;
+  margin-bottom: 10px;
   object-fit: contain;
-  margin-bottom: 16px;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
 }
 
-/* TEXTO */
 .label {
-  font-size: 15px;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 6px;
+  letter-spacing: 2px;
   color: #fff;
 }
 
 .bote {
-  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cifra {
+  font-size: 50px;
   font-weight: 900;
+  line-height: 1;
   color: #fff;
   text-shadow: 0 0 14px rgba(255,255,255,0.7);
 }
 
-.mensaje {
+.millones {
   font-size: 18px;
-  margin-top: 14px;
+  font-weight: 700;
+  margin-top: 4px;
+  letter-spacing: 3px;
   color: #fff;
 }
 
@@ -84,7 +100,7 @@ html, body {
   position: absolute;
   bottom: 18px;
   width: 100%;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 900;
   color: #fff;
 }
@@ -113,77 +129,84 @@ html, body {
 
 <body>
 
-<!-- BONOLOTO -->
 <div class="pantalla bonoloto">
   <div class="contenido">
+    <div class="juego">BONOLOTO</div>
     <img src="logo-bonoloto-blanco.png" class="logo">
-    <div class="label">Bote</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="bonoloto"></div>
   </div>
   <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- PRIMITIVA -->
 <div class="pantalla primitiva">
   <div class="contenido">
+    <div class="juego">LA PRIMITIVA</div>
     <img src="logo-primitiva-blanco.png" class="logo">
-    <div class="label">Bote</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="primitiva"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- QUINIELA -->
 <div class="pantalla quiniela">
   <div class="contenido">
+    <div class="juego">LA QUINIELA</div>
     <img src="logo-quiniela-blanco.png" class="logo">
-    <div class="label">Premio</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="quiniela"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- GORDO -->
 <div class="pantalla gordo">
   <div class="contenido">
+    <div class="juego">EL GORDO</div>
     <img src="logo-el-gordo-blanco.png" class="logo">
-    <div class="label">Bote</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="gordo"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- QUINIGOL -->
 <div class="pantalla quinigol">
   <div class="contenido">
+    <div class="juego">EL QUINIGOL</div>
     <img src="logo-quinigol-blanco.png" class="logo">
-    <div class="label">Premio</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="quinigol"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- LOTOTURF -->
 <div class="pantalla lototurf">
   <div class="contenido">
+    <div class="juego">LOTOTURF</div>
     <img src="logo-lototurf-blanco.png" class="logo">
-    <div class="label">Bote</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="lototurf"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- EURODREAMS -->
 <div class="pantalla eurodreams">
   <div class="contenido">
+    <div class="juego">EURODREAMS</div>
     <img src="logo-eurodreams-blanco.png" class="logo">
-    <div class="label">Premio</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="eurodreams"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
-<!-- EUROMILLONES -->
 <div class="pantalla euromillones">
   <div class="contenido">
+    <div class="juego">EUROMILLONES</div>
     <img src="logo-euromillones-blanco.png" class="logo">
-    <div class="label">Bote</div>
+    <div class="label">BOTE</div>
     <div class="bote" id="euromillones"></div>
   </div>
+  <div class="web">lapastoreta.com</div>
 </div>
 
 <script>
@@ -192,7 +215,9 @@ const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbx_sux9HLbZsxVh
 function formatearBote(valor) {
   if (!valor) return "";
 
-  if (valor.includes("€/mes")) return valor;
+  if (valor.includes("€/mes")) {
+    return `<div class="cifra">${valor}</div>`;
+  }
 
   let limpio = valor.replace(/\./g,"").replace(",00","").replace("€","");
   let num = parseInt(limpio);
@@ -200,17 +225,22 @@ function formatearBote(valor) {
   if (isNaN(num)) return valor;
 
   if (num >= 1000000) {
-    let m = num / 1000000;
-    return m.toLocaleString("es-ES",{maximumFractionDigits:1}) + " MILLONES";
+    let millones = num / 1000000;
+    let cifra = millones.toLocaleString("es-ES", { maximumFractionDigits: 1 });
+
+    return `
+      <div class="cifra">${cifra}</div>
+      <div class="millones">MILLONES</div>
+    `;
   }
 
-  return num.toLocaleString("es-ES") + " €";
+  return `<div class="cifra">${num.toLocaleString("es-ES")} €</div>`;
 }
 
 function pintarBotes(datos) {
   Object.keys(datos).forEach(k => {
     let el = document.getElementById(k);
-    if (el) el.textContent = formatearBote(datos[k]);
+    if (el) el.innerHTML = formatearBote(datos[k]);
   });
 }
 
