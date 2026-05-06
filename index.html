@@ -304,13 +304,66 @@ function formatearBote(valor, juego) {
   return `<div class="cifra-small">${num.toLocaleString("es-ES")} €</div>`;
 }
 
-function pintarBotes(datos) {
-  Object.keys(datos).forEach(k => {
-    let el = document.getElementById(k);
-    if (el) el.innerHTML = formatearBote(datos[k], k);
-  });
+function tieneBote(valor, juego) {
+
+  if (juego === "eurodreams") return true;
+
+  if (!valor) return false;
+
+  const texto = String(valor).toLowerCase();
+
+  if (
+    texto.includes("sin dato") ||
+    texto.includes("no encontrado") ||
+    texto.includes("no hay bote") ||
+    texto.trim() === ""
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
+function pintarBotes(datos) {
+
+  const pantallas = document.querySelectorAll(".pantalla");
+  const activas = [];
+
+  pantallas.forEach(pantalla => {
+
+    const bote = pantalla.querySelector(".bote");
+
+    if (!bote) return;
+
+    const juego = bote.id;
+    const valor = datos[juego];
+
+    if (tieneBote(valor, juego)) {
+
+      bote.innerHTML = formatearBote(valor, juego);
+
+      pantalla.style.display = "block";
+
+      activas.push(pantalla);
+
+    } else {
+
+      pantalla.style.display = "none";
+    }
+  });
+
+  const duracionPorPantalla = 6;
+  const duracionTotal = activas.length * duracionPorPantalla;
+
+  activas.forEach((pantalla, index) => {
+
+    pantalla.style.animation =
+      `rotar ${duracionTotal}s infinite`;
+
+    pantalla.style.animationDelay =
+      `${index * duracionPorPantalla}s`;
+  });
+}
 function cargarDatos() {
   const viejo = document.getElementById("jsonp");
   if (viejo) viejo.remove();
