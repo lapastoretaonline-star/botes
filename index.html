@@ -20,6 +20,7 @@ html, body {
   width: 256px;
   height: 512px;
   opacity: 0;
+  display: none;
   animation: rotar 48s infinite;
   text-align: center;
 }
@@ -129,11 +130,10 @@ html, body {
 }
 
 .web {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #fff;
-  margin-top: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   opacity: 0.85;
 }
 
@@ -143,14 +143,15 @@ html, body {
   opacity: 0.95;
 }
 
-.bonoloto { background: linear-gradient(160deg, #778926, #2f350e); }
+/* COLORES */
+.euromillones { background: linear-gradient(160deg, #003968, #000c1a); }
 .primitiva { background: linear-gradient(160deg, #09873D, #022b14); }
-.quiniela { background: linear-gradient(160deg, #CB1517, #3a0506); }
 .gordo { background: linear-gradient(160deg, #DC3F47, #3a0a0e); }
+.bonoloto { background: linear-gradient(160deg, #778926, #2f350e); }
+.eurodreams { background: linear-gradient(160deg, #6E368C, #1a0b22); }
+.quiniela { background: linear-gradient(160deg, #CB1517, #3a0506); }
 .quinigol { background: linear-gradient(160deg, #40BCCF, #0c2d33); }
 .lototurf { background: linear-gradient(160deg, #ED691F, #3a1604); }
-.eurodreams { background: linear-gradient(160deg, #6E368C, #1a0b22); }
-.euromillones { background: linear-gradient(160deg, #003968, #000c1a); }
 
 .pantalla::before {
   content: "";
@@ -166,12 +167,12 @@ html, body {
 
 <body>
 
-<div class="pantalla bonoloto">
+<div class="pantalla euromillones">
   <div class="contenido">
-    <img src="logo-bonoloto-blanco.png" class="logo">
-    <div class="juego">BONOLOTO</div>
+    <img src="logo-euromillones-blanco.png" class="logo">
+    <div class="juego">EUROMILLONES</div>
     <div class="label">POT</div>
-    <div class="bote" id="bonoloto"></div>
+    <div class="bote" id="euromillones"></div>
   </div>
   <div class="footer">
     <div class="web">www.lapastoreta.com</div>
@@ -192,12 +193,12 @@ html, body {
   </div>
 </div>
 
-<div class="pantalla quiniela">
+<div class="pantalla gordo">
   <div class="contenido">
-    <img src="logo-quiniela-blanco.png" class="logo">
-    <div class="juego">LA QUINIELA</div>
+    <img src="logo-el-gordo-blanco.png" class="logo">
+    <div class="juego">EL GORDO</div>
     <div class="label">POT</div>
-    <div class="bote" id="quiniela"></div>
+    <div class="bote" id="gordo"></div>
   </div>
   <div class="footer">
     <div class="web">www.lapastoreta.com</div>
@@ -205,12 +206,38 @@ html, body {
   </div>
 </div>
 
-<div class="pantalla gordo">
+<div class="pantalla bonoloto">
   <div class="contenido">
-    <img src="logo-el-gordo-blanco.png" class="logo">
-    <div class="juego">EL GORDO</div>
+    <img src="logo-bonoloto-blanco.png" class="logo">
+    <div class="juego">BONOLOTO</div>
     <div class="label">POT</div>
-    <div class="bote" id="gordo"></div>
+    <div class="bote" id="bonoloto"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla eurodreams">
+  <div class="contenido">
+    <img src="logo-eurodreams-blanco.png" class="logo">
+    <div class="juego">EURODREAMS</div>
+    <div class="label">POT</div>
+    <div class="bote" id="eurodreams"></div>
+  </div>
+  <div class="footer">
+    <div class="web">www.lapastoreta.com</div>
+    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
+  </div>
+</div>
+
+<div class="pantalla quiniela">
+  <div class="contenido">
+    <img src="logo-quiniela-blanco.png" class="logo">
+    <div class="juego">LA QUINIELA</div>
+    <div class="label">POT</div>
+    <div class="bote" id="quiniela"></div>
   </div>
   <div class="footer">
     <div class="web">www.lapastoreta.com</div>
@@ -237,32 +264,6 @@ html, body {
     <div class="juego">LOTOTURF</div>
     <div class="label">POT</div>
     <div class="bote" id="lototurf"></div>
-  </div>
-  <div class="footer">
-    <div class="web">www.lapastoreta.com</div>
-    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
-  </div>
-</div>
-
-<div class="pantalla eurodreams">
-  <div class="contenido">
-    <img src="logo-eurodreams-blanco.png" class="logo">
-    <div class="juego">EURODREAMS</div>
-    <div class="label">POT</div>
-    <div class="bote" id="eurodreams"></div>
-  </div>
-  <div class="footer">
-    <div class="web">www.lapastoreta.com</div>
-    <img src="JUEGA-CON-RESPONSABILIDAD.png" class="responsable">
-  </div>
-</div>
-
-<div class="pantalla euromillones">
-  <div class="contenido">
-    <img src="logo-euromillones-blanco.png" class="logo">
-    <div class="juego">EUROMILLONES</div>
-    <div class="label">POT</div>
-    <div class="bote" id="euromillones"></div>
   </div>
   <div class="footer">
     <div class="web">www.lapastoreta.com</div>
@@ -305,7 +306,6 @@ function formatearBote(valor, juego) {
 }
 
 function tieneBote(valor, juego) {
-
   if (juego === "eurodreams") return true;
 
   if (!valor) return false;
@@ -325,29 +325,21 @@ function tieneBote(valor, juego) {
 }
 
 function pintarBotes(datos) {
-
   const pantallas = document.querySelectorAll(".pantalla");
   const activas = [];
 
   pantallas.forEach(pantalla => {
-
     const bote = pantalla.querySelector(".bote");
-
     if (!bote) return;
 
     const juego = bote.id;
     const valor = datos[juego];
 
     if (tieneBote(valor, juego)) {
-
       bote.innerHTML = formatearBote(valor, juego);
-
       pantalla.style.display = "block";
-
       activas.push(pantalla);
-
     } else {
-
       pantalla.style.display = "none";
     }
   });
@@ -356,19 +348,16 @@ function pintarBotes(datos) {
   const duracionTotal = activas.length * duracionPorPantalla;
 
   activas.forEach((pantalla, index) => {
-
-    pantalla.style.animation =
-      `rotar ${duracionTotal}s infinite`;
-
-    pantalla.style.animationDelay =
-      `${index * duracionPorPantalla}s`;
+    pantalla.style.animation = `rotar ${duracionTotal}s infinite`;
+    pantalla.style.animationDelay = `${index * duracionPorPantalla}s`;
   });
 }
+
 function cargarDatos() {
   const viejo = document.getElementById("jsonp");
   if (viejo) viejo.remove();
 
-  let s = document.createElement("script");
+  const s = document.createElement("script");
   s.id = "jsonp";
   s.src = URL_APPS_SCRIPT + "?callback=pintarBotes&t=" + Date.now();
   document.body.appendChild(s);
